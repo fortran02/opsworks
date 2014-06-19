@@ -107,7 +107,7 @@ start)
     echo  -n "Starting zookeeper ... "
     if [ -f "$ZOOPIDFILE" ]; then
       if kill -0 `cat "$ZOOPIDFILE"` > /dev/null 2>&1; then
-         echo $command already running as process `cat "$ZOOPIDFILE"`. 
+         echo $command already running as process `cat "$ZOOPIDFILE"`.
          exit 0
       fi
     fi
