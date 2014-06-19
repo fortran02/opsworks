@@ -17,3 +17,18 @@ template zk_server_script do
       :jvm_max_heap_mem => node[:zookeeper][:jvm_max_heap_mem]
     })
 end
+
+zk_config = ::File.join(node[:zookeeper][:install_dir],
+                          "zookeeper-#{node[:zookeeper][:version]}",
+                          'conf',
+                          'zoo.cfg')
+
+template zk_config do
+    source "zoo.cfg.erb"
+    owner node[:zookeeper][:user]
+    mode "0644"
+    variables ({
+      :snapshot_dir => node[:exhibitor][:snapshot_dir]
+    })
+end
+
