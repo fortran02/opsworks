@@ -1,19 +1,16 @@
 include_recipe "custom-aws-cli-creds::default"
 
-class Chef::Recipe
-  include HelperFunctions
-end
-
 require "json"
 require "open-uri"
 
+Chef::Resource::RubyBlock.send(:include, HelperFunctions)
+
 ENV['AWS_CONFIG_FILE'] = ::File.join(node['custom-aws-cli-creds']['config-dir'], "aws_cli_config")
-secondary_private_ip = node["custom-assign-second-ip"][subnet_id]
 
 ruby_block "verify_secondary_IP" do
   block do
     raise "Cannot find secondary IP!" unless secondary_ip_exists()
-    Chef::Log.info("Secondary IP #{secondary_private_ip} was assigned.")
+    Chef::Log.info("Secondary IP #{@secondary_private_ip} was assigned.")
   end
   action :nothing
 end
