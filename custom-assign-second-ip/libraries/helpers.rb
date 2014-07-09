@@ -1,4 +1,6 @@
 module HelperFunctions
+  require "json"
+  require "open-uri"
 
   def secondary_ip_exists()
     @subnet_id = node[:opsworks][:instance][:subnet_id]

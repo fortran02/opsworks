@@ -1,11 +1,6 @@
 include_recipe "custom-aws-cli-creds::default"
 
-require "json"
-require "open-uri"
-
 Chef::Resource::RubyBlock.send(:include, HelperFunctions)
-
-ENV['AWS_CONFIG_FILE'] = ::File.join(node['custom-aws-cli-creds']['config-dir'], "aws_cli_config")
 
 ruby_block "verify_secondary_IP" do
   block do
